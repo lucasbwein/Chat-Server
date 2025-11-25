@@ -1,0 +1,8 @@
+client
+server
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
