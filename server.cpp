@@ -54,6 +54,13 @@ int main() {
         std::cerr << "Socket creation failed!" << std::endl;
         return 1;
     }
+
+    // Allows for resuse of address/port (saves time for quick restarts)
+    int opt = 1;
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
+        std::cerr << "setsockopt failed!" << std::endl;
+        return 1;
+    }
     
     // Configure server address
     sockaddr_in address;
@@ -129,10 +136,6 @@ int main() {
             // Adds the client to vector for tracking
             clients.push_back(new_client);
             std::cout << "New client connected (socket " << new_client << ")" << std::endl;
-            
-            // Creates prompt for entering username to clients
-            std::string prompt = "Enter your username: ";
-            send(new_client, prompt.c_str(), prompt.length(), 0);
         }
 
         // Check all clients for activity
@@ -175,6 +178,9 @@ int main() {
                     
                     // Client SENT Data
                     std::string message(buffer);
+
+                    // STRIP TRAILING WHITESPACE/NEWLINES
+                    message.erase(message.find_last_not_of(" \n\r\t") + 1);
 
                     // Checks if this is their first message (or inputing username)
                     // if find() returns the end() it means non-existant in username map

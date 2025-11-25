@@ -47,7 +47,8 @@ void recieveMessage() {
         }
 
         // Formats the recieved message within buffer
-        std::cout << "\n" << buffer << std::endl;
+        std::cout << "\r\033[K";
+        std::cout << buffer << std::endl;
         std::cout << "You: " << std::flush; // flush is used to force immediate print
     }
 }
@@ -92,15 +93,18 @@ int main() {
     // Sends the username to server
     send(sock_fd, username.c_str(), username.length(), 0);
 
-    std::cout << "Start chatting (type 'quit' to exit):\n" << std::endl;
+    std::cout << "\nStart chatting (type 'quit' to exit):\n" << std::endl;
 
 // --------- Threading Communication ---------
 
     // starts to recieve data/messages Thread
     std::thread(recieveMessage).detach();
-     
+    
+    // std::cout << "You: " << std::flush;
+    
     // Main thread used to handle the input and sending to server
     std::string message;
+    
     while(running) {
         std::cout << "You: ";
         std::getline(std::cin, message); // waits for user to input
