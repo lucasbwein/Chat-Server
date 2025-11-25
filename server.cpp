@@ -100,8 +100,8 @@ int main() {
         }
 
         // Wait for activity on ANY socket
-        // selects each block until activity in one
-        // To then select() that block
+        // block until activity in one
+        // To then select()
         // Returning number of sockets currently with activity
         // Parameters:
         // max_fd, read set, write set, exception set, timeout
