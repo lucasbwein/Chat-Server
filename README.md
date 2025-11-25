@@ -62,8 +62,7 @@ I started by following a basic socket tutorial, got a simple echo server working
 then expanded it to handle multiple clients using threading. After realizing 
 threading didn't scale well, I looked into how to more efficiently handle thousands 
 of connections, in the way that large servers do, and discovered select(). Refactoring 
-from threading to select() 
-taught me more about networking than the initial implementation.
+from threading to select() taught me more about networking than the initial implementation.
 
 ### Key Concepts
 - **TCP fundamentals**: Understanding the difference between socket(), bind(), 
@@ -72,21 +71,14 @@ taught me more about networking than the initial implementation.
   doesn't scale. select() lets one thread monitor hundreds of sockets efficiently
 - **State management challenges**: Tracking which client is which, handling 
   disconnects, cleaning up resources properly
-- **Buffer management**: Learning why memset() is critical - spent an hour 
+- **Buffer management**: Learning why memset() is critical - spent time 
   debugging messages getting concatenated before realizing I wasn't clearing buffers
-
-### Mistakes I Made
-- Initially forgot to use memset() - led to weird message concatenation bugs
-- Had an off-by-one error in disconnect handling that crashed the server
-- Learned the hard way why you need to adjust loop index after erasing from vector
 
 #### Architecture Decisions
 - **Threading → select() refactor**: I initially built this with threading (one thread 
   per client) because it was conceptually simpler - each client gets its own handler. 
   After getting it working, I learned about select() and realized it's more scalable. 
-  The refactor took a few hours but taught me about event-driven I/O and why game 
-  servers use this pattern. The threading version is still in the code (commented) 
-  as reference.
+  The refactor taught me about event-driven I/O and why game servers use this pattern. The threading version is still in the code (commented) as reference.
 - **State management**: Used map for O(1) username lookups by socket descriptor
 - **Broadcast efficiency**: Loop through client vector once per message
 
