@@ -100,8 +100,6 @@ int main() {
     // starts to recieve data/messages Thread
     std::thread(recieveMessage).detach();
     
-    // std::cout << "You: " << std::flush;
-    
     // Main thread used to handle the input and sending to server
     std::string message;
     
