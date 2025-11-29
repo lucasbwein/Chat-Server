@@ -1,7 +1,7 @@
 /*
 Multi-Client Chat Server
 
-TCP-based chat server with I/O  multiplexing by select().
+TCP-based chat server with I/O multiplexing by select().
 Checks activity to process the clients through a single thread,
 allowing multiple concurrent clients.
 
@@ -23,7 +23,7 @@ Key Ideas:
 // Note: Can use threading/mutex but less ineffective
 // #include <thread>
 // #include <mutex>
-// std::mutex clients_mutex; Dont need only for threading
+// std::mutex clients_mutex; Dont need, only for threading
 
 //Global: tracks all connected clients
 std::vector<int> clients; // Stores socket descriptors
@@ -179,7 +179,7 @@ int main() {
                     // Client SENT Data
                     std::string message(buffer);
 
-                    // STRIP TRAILING WHITESPACE/NEWLINES
+                    // STRIP TRAILING WHITESPACE/NEWLINES so You: doesn't linger
                     message.erase(message.find_last_not_of(" \n\r\t") + 1);
 
                     // Checks if this is their first message (or inputing username)

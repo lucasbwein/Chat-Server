@@ -47,7 +47,7 @@ void recieveMessage() {
         }
 
         // Formats the recieved message within buffer
-        std::cout << "\r\033[K";
+        std::cout << "\r\033[K"; // Clears entire line before
         std::cout << buffer << std::endl;
         std::cout << "You: " << std::flush; // flush is used to force immediate print
     }
@@ -99,8 +99,6 @@ int main() {
 
     // starts to recieve data/messages Thread
     std::thread(recieveMessage).detach();
-    
-    // std::cout << "You: " << std::flush;
     
     // Main thread used to handle the input and sending to server
     std::string message;

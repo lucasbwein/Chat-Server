@@ -128,4 +128,4 @@ This project demonstrates core concepts used in online game servers:
 
 ---
 
-**Built as part of learning systems programming for game development.**
+**Built by Lucas Weinstein**  
