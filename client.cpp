@@ -47,7 +47,7 @@ void recieveMessage() {
         }
 
         // Formats the recieved message within buffer
-        std::cout << "\r\033[K";
+        std::cout << "\r\033[K"; // Clears entire line before
         std::cout << buffer << std::endl;
         std::cout << "You: " << std::flush; // flush is used to force immediate print
     }
